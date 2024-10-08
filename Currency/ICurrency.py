@@ -4,24 +4,24 @@ class ICurrency(ABC):
 
     @abstractmethod
     def setName(self, name: str) -> None:
-        self.name = name
+        pass
 
     @abstractmethod
     def getName(self) -> str:
-        return self.name
+        pass
 
     @abstractmethod
     def setCode(self, code: str) -> None:
-        self.code = code
+        pass
 
     @abstractmethod
     def getCode(self) -> str:
-        return self.code
+        pass
 
     @abstractmethod
     def setRate(self, rate: float) -> None:
-        self.rate = rate
+        pass
 
     @abstractmethod
     def getRate(self) -> float:
-        return self.rate
+        pass
