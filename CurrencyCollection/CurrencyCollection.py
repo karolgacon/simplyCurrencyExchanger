@@ -1,3 +1,5 @@
+from locale import currency
+
 from ICurrencyCollection import ICurrencyCollection
 from Currency import Currency
 
@@ -7,6 +9,9 @@ class CurrencyCollection(ICurrencyCollection):
 
     def addCurrency(self, currency: Currency) -> None:
         self.currencies[currency.getCode()] = currency
+
+    def addCurrencies(self, currency_dict: dict) -> None:
+        self.currencies.update(currency_dict)
 
     def getCurrencies(self) -> list:
         return list(self.currencies.values())

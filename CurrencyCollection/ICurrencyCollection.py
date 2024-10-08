@@ -7,6 +7,10 @@ class ICurrencyCollection(ABC):
         pass
 
     @abstractmethod
+    def addCurrencies(self, currencies):
+        pass
+
+    @abstractmethod
     def getCurrencies(self):
         pass
 
