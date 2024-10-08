@@ -1,4 +1,4 @@
-from Currency import Currency
+from Currency import Currency, ICurrency
 from IParser import IParser
 import xml.etree.ElementTree as ET
 

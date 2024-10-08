@@ -1,8 +1,7 @@
 import requests
-from IDataProvider import IDataProvider
-from Parser import XMLToDictParser
+from DataProvider import IDataProvider
 
-class XMLDataProvider(IDataProvider):
+class XMLDataProvider(IDataProvider.IDataProvider):
     NBP_API_URL = "https://api.nbp.pl/api/exchangerates/tables/a/"
 
     def acquireData(self) -> str:
