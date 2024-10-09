@@ -1,7 +1,7 @@
 import requests
 from DataProvider import IDataProvider
 
-class XMLDataProvider(IDataProvider.IDataProvider):
+class JSONDataProvider(IDataProvider.IDataProvider):
     def __init__(self):
         self.link = "https://api.nbp.pl/api/exchangerates/tables/a/"
 

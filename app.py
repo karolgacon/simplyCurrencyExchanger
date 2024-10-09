@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from DataProvider import XMLDataProvider, IDataProvider
+from DataProvider import JSONDataProvider, IDataProvider
 from Exchanger import Exchanger
 from CurrencyCollection import CurrencyCollection, ICurrencyCollection
 from Parser import JSONToDictParser, IParser
@@ -8,7 +8,7 @@ from Parser import JSONToDictParser, IParser
 app = Flask(__name__)
 
 # Inicjalizacja danych
-data_provider: IDataProvider = XMLDataProvider.XMLDataProvider()
+data_provider: IDataProvider = JSONDataProvider.JSONDataProvider()
 xml_data = data_provider.acquireData()  # Uzyskuje dane w XML
 
 parser: IParser = JSONToDictParser.JSONToDictParser()  # Użycie parsera
