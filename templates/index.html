@@ -4,31 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Hopstarter-Soft-Scraps-Coin.ico') }}">
     <title>Currency Exchange</title>
 </head>
 <body>
     <main>
-        <h1>Currency Exchange</h1>
-        <form action="/exchange" method="post">
-            <label for="from_currency">From:</label>
-            <select name="from_currency" id="from_currency">
-                {% for currency in currencies %}
-                    <option value="{{ currency.getCode() }}">{{ currency.getName() }}</option>
-                {% endfor %}
-            </select>
+        <div class="box">
+            <h1>Currency <span>Exchanger</span></h1>
+            <form action="/exchange" method="post">
+                <label for="from_currency">From:</label>
+                <select name="from_currency" id="from_currency">
+                    {% for currency in currencies %}
+                        <option value="{{ currency.getCode() }}">{{ currency.getName() }}</option>
+                    {% endfor %}
+                </select>
 
-            <label for="to_currency">To:</label>
-            <select name="to_currency" id="to_currency">
-                {% for currency in currencies %}
-                    <option value="{{ currency.getCode() }}">{{ currency.getName() }}</option>
-                {% endfor %}
-            </select>
+                <label for="to_currency">To:</label>
+                <select name="to_currency" id="to_currency">
+                    {% for currency in currencies %}
+                        <option value="{{ currency.getCode() }}">{{ currency.getName() }}</option>
+                    {% endfor %}
+                </select>
 
-            <label for="amount">Amount:</label>
-            <input type="number" name="amount" id="amount" required>
+                <label for="amount">Amount:</label>
+                <input type="number" name="amount" id="amount" step="0.01" required>
 
-            <button type="submit">Exchange</button>
-        </form>
+                <button type="submit">Exchange</button>
+            </form>
+        </div>
     </main>
 </body>
 </html>
