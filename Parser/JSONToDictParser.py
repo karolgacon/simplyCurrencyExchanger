@@ -1,10 +1,9 @@
-from Currency import Currency, ICurrency
-import json
+from Currency import Currency
 from Parser.IParser import IParser
 
 
 class JSONToDictParser(IParser):
-    def parse(self, dataset:list) -> dict:
+    def parse(self, dataset: list) -> dict:
         currency_dict = {}
         data = dataset[0]
         for item in data["rates"]:
@@ -15,8 +14,10 @@ class JSONToDictParser(IParser):
             currency_dict[code] = currency
 
         code_pln = "PLN"
-        name_pln = "Polski złoty"
+        name_pln = "Polish zloty"
         rate = 1
         currency = Currency.Currency(code_pln, name_pln, rate)
         currency_dict[code_pln] = currency
         return currency_dict
+
+    # TODO add binary decoding and parser to xml from binary,txt

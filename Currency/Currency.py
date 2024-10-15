@@ -2,7 +2,7 @@ from Currency.ICurrency import ICurrency
 
 
 class Currency(ICurrency):
-    def __init__(self,  code:str, name:str = None, rate:float = None):
+    def __init__(self,  code: str, name: str = None, rate: float = None):
         if name is None and rate is None:
             self.code = code
         else:

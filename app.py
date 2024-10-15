@@ -9,10 +9,10 @@ app = Flask(__name__)
 
 # Inicjalizacja danych
 data_provider: IDataProvider = JSONDataProvider.JSONDataProvider()
-xml_data = data_provider.acquireData()  # Uzyskuje dane w XML
+json_data = data_provider.acquireData()
 
 parser: IParser = JSONToDictParser.JSONToDictParser()  # Użycie parsera
-currency_dict = parser.parse(xml_data)  # Parsowanie danych do słownika
+currency_dict = parser.parse(json_data)  # Parsowanie danych do słownika
 
 currency_collection: ICurrencyCollection = CurrencyCollection.CurrencyCollection()
 currency_collection.addCurrencies(currency_dict)  # Dodaj waluty ze słownika

@@ -1,7 +1,4 @@
-from Exchanger.IExchanger import IExchanger
-
-
-class Exchanger(IExchanger):
+class Exchanger:
     __instance = None  # Singleton instance
 
     def __new__(cls):
@@ -9,7 +6,7 @@ class Exchanger(IExchanger):
             cls.__instance = super(Exchanger, cls).__new__(cls)
         return cls.__instance
 
-    def exchange(self, from_currency, to_currency, amount:float) ->float:
+    def exchange(self, from_currency, to_currency, amount: float) -> float:
         rate_from = from_currency.getRate()
         rate_to = to_currency.getRate()
-        return round(amount * rate_from / rate_to,2)
+        return round(amount * rate_from / rate_to, 2)
