@@ -1,50 +1,18 @@
-from flask import Flask, render_template, request
-from DataProvider import FileDataAcquisition, IDataProvider
-from Exchanger import Exchanger
-from CurrencyCollection import CurrencyCollection, ICurrencyCollection
-from Parser import JSONToDictParser, IParser
+from FlaskApp.FlaskApp import FlaskApp
+from Exchanger.Exchanger import Exchanger
+from Parser.DataParser import DataParser
+from ParserOption.JSONParserStrategy import JsonArrayParserStrategy
+from DataProvider.WebDataAcquisition import WebDataAcquisition
 
+# Inicjalizacja danych walutowych i aplikacji
+web_data_acquisition: WebDataAcquisition = WebDataAcquisition("https://api.nbp.pl/api/exchangerates/tables/A?format=json")
+json_parser: DataParser = DataParser(JsonArrayParserStrategy())
+data: str = web_data_acquisition.acquire_data()
+currency_collection = json_parser.parse_data(data)
+exchanger: Exchanger = Exchanger(currency_collection)
 
-app = Flask(__name__)
+# Utworzenie instancji aplikacji Flask jako Singleton
+app_instance: FlaskApp = FlaskApp(exchanger)
 
-# Inicjalizacja danych
-data_provider: IDataProvider = JSONDataProvider.JSONDataProvider()
-json_data = data_provider.acquireData()
-
-parser: IParser = JSONToDictParser.JSONToDictParser()  # Użycie parsera
-currency_dict = parser.parse(json_data)  # Parsowanie danych do słownika
-
-currency_collection: ICurrencyCollection = CurrencyCollection.CurrencyCollection()
-currency_collection.addCurrencies(currency_dict)  # Dodaj waluty ze słownika
-
-exchanger = Exchanger.Exchanger()  # Singleton instance
-
-
-@app.route('/')
-def index():
-    currencies = currency_collection.getCurrencies()
-    return render_template('index.html', currencies=currencies)
-
-
-@app.route('/exchange', methods=['POST'])
-def exchange():
-    from_currency_code = request.form['from_currency']
-    to_currency_code = request.form['to_currency']
-    amount = float(request.form['amount'])
-
-    from_currency = currency_collection.getCurrencyByCode(from_currency_code)
-    to_currency = currency_collection.getCurrencyByCode(to_currency_code)
-
-    result = exchanger.exchange(from_currency, to_currency, amount)
-
-    return render_template('result.html',
-                           from_currency_code=from_currency_code,
-                           to_currency_code=to_currency_code,
-                           from_currency=from_currency.getName(),
-                           to_currency=to_currency.getName(),
-                           amount=amount,
-                           result=result)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app_instance.run()

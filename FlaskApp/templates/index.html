@@ -14,15 +14,15 @@
             <form action="/exchange" method="post">
                 <label for="from_currency">From:</label>
                 <select name="from_currency" id="from_currency">
-                    {% for currency in currencies %}
-                        <option value="{{ currency.getCode() }}">{{ currency.getName() }}</option>
+                    {% for currency in currency_collection %}
+                        <option value="{{ currency.get_code() }}">{{ currency.get_name() }}</option>
                     {% endfor %}
                 </select>
 
                 <label for="to_currency">To:</label>
                 <select name="to_currency" id="to_currency">
-                    {% for currency in currencies %}
-                        <option value="{{ currency.getCode() }}">{{ currency.getName() }}</option>
+                    {% for currency in currency_collection %}
+                        <option value="{{ currency.get_code() }}">{{ currency.get_name() }}</option>
                     {% endfor %}
                 </select>
 

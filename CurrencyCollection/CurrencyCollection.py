@@ -1,12 +1,13 @@
-from typing import List
-
 from Currency.Currency import Currency
-from interfaces import ICurrencyCollection
+from interfaces.ICurrencyCollection import ICurrencyCollection
 
 
 class CurrencyCollection(ICurrencyCollection):
-    def __init__(self):
+    def __init__(self, id: str = "", timestamp: str = ""):
         self.currencies: dict[str, Currency] = {}
+        self.id = id
+        self.timestamp = timestamp
+        self.add_currency(Currency('PLN', 'Polish zloty', 1.0))
 
     def add_currency(self, currency: Currency) -> None:
         self.currencies[currency.get_code()] = currency

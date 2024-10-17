@@ -1,4 +1,4 @@
-from interfaces import IDataAcquisition
+from interfaces.IDataAcquisition import IDataAcquisition
 from urllib.request import urlopen
 
 class WebDataAcquisition(IDataAcquisition):

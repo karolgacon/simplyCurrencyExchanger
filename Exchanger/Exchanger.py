@@ -1,12 +1,16 @@
+from CurrencyCollection import CurrencyCollection
+from Currency.Currency import Currency
+
 class Exchanger:
-    __instance = None  # Singleton instance
+    def __init__(self, currency_collection: CurrencyCollection):
+        self.currency_collection: CurrencyCollection = currency_collection
 
-    def __new__(cls):
-        if cls.__instance is None:
-            cls.__instance = super(Exchanger, cls).__new__(cls)
-        return cls.__instance
+    def exchange(self, from_code: str, to_code: str, amount: float) -> float:
+        from_currency: Currency = self.currency_collection.get_currency_by_code(from_code)
+        to_currency: Currency = self.currency_collection.get_currency_by_code(to_code)
 
-    def exchange(self, from_currency, to_currency, amount: float) -> float:
-        rate_from = from_currency.getRate()
-        rate_to = to_currency.getRate()
-        return round(amount * rate_from / rate_to, 2)
+        if not from_currency or not to_currency:
+            raise ValueError("Niepoprawny kod waluty")
+
+        exchanged_amount: float = (amount * from_currency.get_rate()) / to_currency.get_rate()
+        return round(exchanged_amount,2)
