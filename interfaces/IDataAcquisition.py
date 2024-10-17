@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-
-class IDataProvider(ABC):
+class IDataAcquisition(ABC):
     @abstractmethod
-    def acquireData(self):
+    def acquire_data(self):
         pass
+

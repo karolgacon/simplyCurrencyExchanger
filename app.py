@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from DataProvider import JSONDataProvider, IDataProvider
+from DataProvider import FileDataAcquisition, IDataProvider
 from Exchanger import Exchanger
 from CurrencyCollection import CurrencyCollection, ICurrencyCollection
 from Parser import JSONToDictParser, IParser
