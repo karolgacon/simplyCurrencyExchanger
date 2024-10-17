@@ -35,5 +35,9 @@ class FlaskApp:
             except ValueError as e:
                 return render_template('result.html', error=str(e))
 
+        @self._app.route('/currencies')
+        def currencies() -> str:
+            return render_template('currencies.html', currencies=self._exchanger.currency_collection.get_currencies())
+
     def run(self) -> None:
         self._app.run(debug=True)

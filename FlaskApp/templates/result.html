@@ -16,7 +16,7 @@
                 <p>{{ amount }}  <img class="flag" src="https://flagcdn.com/{{ from_currency_code[:2].lower() }}.svg" alt="flag of {{ from_currency }}"> {{ from_currency }}</p>
                 <p class="equals"> equals</p>
                 <p>{{ result }}  <img class="flag" src="https://flagcdn.com/{{ to_currency_code[:2].lower() }}.svg" alt="flag of {{ to_currency }}"> {{ to_currency }}</p>
-            <a href="/">Go Back</a>
+            <a href="{{ url_for('index') }}">Go Back</a>
         </div>
     </main>
 </body>

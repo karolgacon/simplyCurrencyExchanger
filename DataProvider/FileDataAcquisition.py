@@ -1,4 +1,4 @@
-from interfaces import IDataAcquisition
+from interfaces.IDataAcquisition import IDataAcquisition
 
 class FileDataAcquisition(IDataAcquisition):
     def __init__(self, file_path: str):

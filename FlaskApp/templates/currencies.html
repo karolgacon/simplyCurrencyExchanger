@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Walut</title>
+</head>
+<body>
+    <h1>Lista Walut</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nazwa Waluty</th>
+                <th>Kod Waluty</th>
+                <th>Kurs</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for currency in currencies %}
+            <tr>
+                <td>{{ currency.name }}</td>
+                <td>{{ currency.code }}</td>
+                <td>{{ currency.rate }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('index') }}">Powrót do strony głównej</a>
+</body>
+</html>
