@@ -27,6 +27,8 @@ main{
 }
 
 .box{
+    display: flex;
+    flex-direction: column;
     background-color: #277cdc;
     padding: 50px;
     box-shadow: 0 0 5px 5px #1e77da;
@@ -74,5 +76,23 @@ span{
 p {
     font-size: 1.5em;
     margin: 10px 0;
+}
+
+.currency_list-link{
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #FFA500;
+    color: white;
+    border: none;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    transition-duration: 0.2s;
+}
+
+.currency_list-link:hover {
+    background-color: #CC8400;
 }
 
