@@ -3,9 +3,8 @@ from Currency.Currency import Currency
 from CurrencyCollection.CurrencyCollection import CurrencyCollection
 from interfaces import IParserOption
 
-class XmlStringToCollectionParserStrategy(IParserOption):
-    @staticmethod
-    def parse(data: str) -> CurrencyCollection:
+class XMLToCollectionOption(IParserOption):
+    def parse(self, data: str) -> CurrencyCollection:
         root = Et.fromstring(data)
         collection: CurrencyCollection = CurrencyCollection()
         for currency_node in root.findall('currency'):

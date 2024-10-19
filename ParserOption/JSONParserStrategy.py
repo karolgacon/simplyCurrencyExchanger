@@ -3,7 +3,7 @@ from Currency.Currency import Currency
 from CurrencyCollection.CurrencyCollection import CurrencyCollection
 from interfaces.IParserOption import IParserOption
 
-class JsonArrayParserStrategy(IParserOption):
+class JsonArrayParserOption(IParserOption):
     def parse(self, data: str) -> CurrencyCollection:
         json_data = json.loads(data)
 
