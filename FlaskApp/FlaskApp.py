@@ -36,7 +36,7 @@ class FlaskApp:
 
         @self._app.route('/currencies')
         def currencies() -> str:
-            return render_template('currencies.html', currencies=self._exchanger.currency_collection.get_currencies())
+            return render_template('currencies.html', currencies=self._exchanger.currency_collection.get_currencies(), timestamp=self._exchanger.currency_collection.get_timestamp(), id_collection=self._exchanger.currency_collection.get_id())
 
     def run(self) -> None:
         self._app.run(debug=True)
