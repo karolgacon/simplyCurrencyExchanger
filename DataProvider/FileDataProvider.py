@@ -1,6 +1,6 @@
-from interfaces.IDataAcquisition import IDataAcquisition
+from interfaces.IDataProvider import IDataProvider
 
-class FileDataAcquisition(IDataAcquisition):
+class FileDataProvider(IDataProvider):
     def __init__(self, file_path: str):
         self.file_path: str = file_path
 

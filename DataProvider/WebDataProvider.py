@@ -1,7 +1,7 @@
-from interfaces.IDataAcquisition import IDataAcquisition
+from interfaces.IDataProvider import IDataProvider
 from urllib.request import urlopen
 
-class WebDataAcquisition(IDataAcquisition):
+class WebDataProvider(IDataProvider):
     def __init__(self, url: str):
         self.url: str = url
 

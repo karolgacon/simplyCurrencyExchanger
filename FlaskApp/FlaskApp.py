@@ -14,7 +14,6 @@ class FlaskApp:
         return cls._instance
 
     def _configure_routes(self) -> None:
-        app = self._app
 
         @self._app.route('/')
         def index() -> str:
