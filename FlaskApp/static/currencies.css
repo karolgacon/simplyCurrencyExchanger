@@ -51,7 +51,7 @@ th, td{
 
 th{
     font-weight: bolder;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 tbody tr{
@@ -76,4 +76,16 @@ tbody tr{
 
 .back_to_main:hover{
     background-color: #CC8400;
+}
+
+.box{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 5px 0 30px;
+}
+
+.box h2{
+    font-size: 22px;
+    font-weight: 600;
 }

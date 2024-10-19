@@ -20,3 +20,9 @@ class CurrencyCollection(ICurrencyCollection):
 
     def get_currency_by_code(self, code: str) -> Currency:
         return self.currencies.get(code)
+
+    def get_timestamp(self) -> str:
+        return self.timestamp
+
+    def get_id(self) -> str:
+        return self.id
