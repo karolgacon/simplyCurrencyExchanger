@@ -1,6 +1,9 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request
+from DataProvider.FileDataProvider import FileDataProvider
+from DataProvider.WebDataProvider import WebDataProvider
 from Exchanger.Exchanger import Exchanger
-from typing import Optional, Self
+from typing import Self
+from Parser.DataParser import DataParser
 from interfaces.IDataProvider import IDataProvider
 from interfaces.IDataParser import IDataParser
 
@@ -14,13 +17,14 @@ class FlaskApp:
             cls._instance = cls(exchanger, web_data_acquisition, file_data_acquisition, data_parser)
         return cls._instance
 
-    def __new__(cls, exchanger: Exchanger, web_data_acquisition: IDataProvider, file_data_acquisition: IDataProvider, data_parser: IDataParser) -> Self:
+    def __new__(cls) -> Self:
         if cls._instance is None:
             cls._instance = super(FlaskApp, cls).__new__(cls)
-            cls._instance._exchanger = exchanger
-            cls._instance._web_data_acquisition = web_data_acquisition
-            cls._instance._json_parser = data_parser
-            cls._instance._file_data_acquisition = file_data_acquisition
+            cls._instance._exchanger = None
+            cls._instance._web_data_acquisition = None
+            cls._instance._currency_collection = None
+            cls._instance._data_parser = None
+            cls._instance._file_data_acquisition = None
             cls._instance._app = Flask(__name__)
             cls._instance._configure_routes()
         return cls._instance
@@ -46,7 +50,7 @@ class FlaskApp:
             except ValueError as e:
                 return render_template('result.html', error=str(e))
 
-        @self._app.route('/currencies')
+        @self._app.route('/currencies', methods=['POST'])
         def currencies() -> str:
             return render_template('currencies.html', currencies=self._exchanger.currency_collection.get_currencies(), timestamp=self._exchanger.currency_collection.get_timestamp(), id_collection=self._exchanger.currency_collection.get_id())
 
@@ -54,14 +58,19 @@ class FlaskApp:
         @self._app.route('/load_file', methods=['POST'])
         def load_file():
             data = self._file_data_acquisition.acquire_data()  # Pobieranie danych z pliku
-            self._exchanger.currency_collection = self._json_parser.parse_data(data)  # Przypisujemy dane do kolekcji walut
+            self._exchanger.currency_collection = self._data_parser.parse_data(data)  # Przypisujemy dane do kolekcji walut
             return render_template('index.html', currency_collection=self._exchanger.currency_collection.get_currencies())
 
         @self._app.route('/load_api', methods=['POST'])
         def load_api():
             data = self._web_data_acquisition.acquire_data()  # Pobieranie danych z pliku
-            self._exchanger.currency_collection = self._json_parser.parse_data(data)  # Przypisujemy dane do kolekcji walut
+            self._exchanger.currency_collection = self._data_parser.parse_data(data)  # Przypisujemy dane do kolekcji walut
             return render_template('index.html', currency_collection=self._exchanger.currency_collection.get_currencies())
 
     def run(self) -> None:
+        self._web_data_acquisition = WebDataProvider("https://api.nbp.pl/api/exchangerates/tables/A?format=json")
+        self._file_data_acquisition = FileDataProvider("./A.xml")
+        self._data_parser = DataParser()
+        self._currency_collection = self._data_parser.parse_data(self._web_data_acquisition.acquire_data())
+        self._exchanger = Exchanger(self._currency_collection)
         self._app.run(debug=True)

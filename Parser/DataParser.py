@@ -2,26 +2,25 @@ from interfaces.ICurrencyCollection import ICurrencyCollection
 from interfaces.IDataParser import IDataParser
 from interfaces.IParserOption import IParserOption
 from ParserOption.JSONParserOption import JsonArrayParserOption
-from ParserOption.XMLParserOption import XMLToCollectionOption
-from CurrencyCollection.CurrencyCollection import CurrencyCollection
+from ParserOption.XMLParserOption import XMLToArrayOption
 import json
 import xml.etree.ElementTree as ET
 
 
 class DataParser(IDataParser):
     def __init__(self):
-        self.strategy: IParserOption = None
+        self.__option: IParserOption = None
 
     def parse_data(self, data: str) -> ICurrencyCollection:
         # Rozpoznawanie formatu danych
         if self._is_json(data):
-            self.strategy = JsonArrayParserOption()  # Wybór parsera JSON
+            self.__option = JsonArrayParserOption()  # Wybór parsera JSON
         elif self._is_xml(data):
-            self.strategy = XMLToCollectionOption()  # Wybór parsera XML
+            self.__option = XMLToArrayOption()  # Wybór parsera XML
         else:
             raise ValueError("Unsupported data format")
 
-        return self.strategy.parse(data)
+        return self.__option.parse(data,)
 
     def _is_json(self, data: str) -> bool:
         # Sprawdzenie, czy dane są w formacie JSON

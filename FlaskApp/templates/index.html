@@ -31,15 +31,19 @@
 
                 <button type="submit">Exchange</button>
             </form>
-                <a class="currency_list-link" href="{{ url_for('currencies') }}">Currencies list</a>
+            <div class="box2">
+                <form method="POST" action="/currencies">
+                    <button type="submit">List of currencies</button>
+                </form>
 
-            <form method="POST" action="/load_file">
-                <button type="submit">Load Data from File</button>
-            </form>
+                <form method="POST" action="/load_file">
+                    <button type="submit">Load Data from File</button>
+                </form>
 
-            <form method="POST" action="/load_api">
-                <button type="submit">Load Data from API</button>
-            </form>
+                <form method="POST" action="/load_api">
+                    <button type="submit">Load Data from API</button>
+                </form>
+            </div>
         </div>
     </main>
 </body>

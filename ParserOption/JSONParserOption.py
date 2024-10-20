@@ -6,7 +6,8 @@ from interfaces.ICurrencyCollection import ICurrencyCollection
 from interfaces.IParserOption import IParserOption
 
 class JsonArrayParserOption(IParserOption):
-    def parse(self, data: str) -> ICurrencyCollection:
+    @staticmethod
+    def parse(data: str) -> ICurrencyCollection:
         json_data = json.loads(data)
         # Pobieramy id i timestamp z pierwszej tabeli
         id: str = json_data[0]['no']
@@ -26,5 +27,5 @@ class JsonArrayParserOption(IParserOption):
                 collection.add_currency(currency)
             else:
                 print(f"Invalid entry: {entry}")
-
+        print(collection)
         return collection

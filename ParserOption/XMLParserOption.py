@@ -4,8 +4,9 @@ from CurrencyCollection.CurrencyCollection import CurrencyCollection
 from interfaces.ICurrencyCollection import ICurrencyCollection
 from interfaces.IParserOption import IParserOption
 
-class XMLToCollectionOption(IParserOption):
-    def parse(self, data: str) -> ICurrencyCollection:
+class XMLToArrayOption(IParserOption):
+    @staticmethod
+    def parse(data: str) -> ICurrencyCollection:
         root = Et.fromstring(data)
         id: str = root.find("ExchangeRatesTable").find("No").text
         timestamp: str = root.find("ExchangeRatesTable").find("EffectiveDate").text
