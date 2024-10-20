@@ -6,13 +6,12 @@ from interfaces.IParserOption import IParserOption
 class JsonArrayParserOption(IParserOption):
     def parse(self, data: str) -> CurrencyCollection:
         json_data = json.loads(data)
-
         # Pobieramy id i timestamp z pierwszej tabeli
         id = json_data[0]['no']
         timestamp = json_data[0]['effectiveDate']
 
         # Tworzymy kolekcję walut z id i timestamp
-        collection = CurrencyCollection(id=id, timestamp=timestamp)
+        collection = CurrencyCollection(tid=id, timestamp=timestamp)
 
         # Przetwarzamy waluty
         for entry in json_data[0]['rates']:

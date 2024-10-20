@@ -1,28 +1,30 @@
+from datetime import datetime
+
 from Currency.Currency import Currency
 from interfaces.ICurrencyCollection import ICurrencyCollection
 
 
 class CurrencyCollection(ICurrencyCollection):
-    def __init__(self, id: str = "", timestamp: str = ""):
-        self.currencies: dict[str, Currency] = {}
-        self.id = id
-        self.timestamp = timestamp
+    def __init__(self, tid: str = "", timestamp: str = ""):
+        self.__currencies: dict[str, Currency] = {}
+        self.__id = tid
+        self.__timestamp = timestamp
         self.add_currency(Currency('PLN', 'Polish zloty', 1.0))
 
     def add_currency(self, currency: Currency) -> None:
-        self.currencies[currency.get_code()] = currency
+        self.__currencies[currency.get_code()] = currency
 
     def add_currencies(self, currency_dict: dict) -> None:
-        self.currencies.update(currency_dict)
+        self.__currencies.update(currency_dict)
 
     def get_currencies(self) -> list[Currency]:
-        return list(self.currencies.values())
+        return list(self.__currencies.values())
 
     def get_currency_by_code(self, code: str) -> Currency:
-        return self.currencies.get(code)
+        return self.__currencies.get(code)
 
     def get_timestamp(self) -> str:
-        return self.timestamp
+        return self.__timestamp
 
     def get_id(self) -> str:
-        return self.id
+        return self.__id

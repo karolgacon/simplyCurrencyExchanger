@@ -5,5 +5,5 @@ class FileDataProvider(IDataProvider):
         self.file_path: str = file_path
 
     def acquire_data(self) -> str:
-        with open(self.file_path, 'r') as file:
+        with open(self.file_path, 'r', encoding='UTF-8') as file:
             return file.read()

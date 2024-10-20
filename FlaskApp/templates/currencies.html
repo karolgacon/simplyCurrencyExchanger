@@ -24,9 +24,9 @@
             <tbody>
                 {% for currency in currencies %}
                 <tr>
-                    <td>{{ currency.name }}</td>
-                    <td>{{ currency.code }}</td>
-                    <td>{{ currency.rate }}</td>
+                    <td>{{ currency.get_name() }}</td>
+                    <td>{{ currency.get_code() }}</td>
+                    <td>{{ currency.get_rate() }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
