@@ -1,3 +1,4 @@
+from interfaces.ICurrency import ICurrency
 
 class Currency:
     def __init__(self,  code: str, name: str = None, rate: float = None):
@@ -9,10 +10,10 @@ class Currency:
             self.__rate = rate
 
     def __eq__(self, __value: object) -> bool:
-        if self.__code == __value.get_code():
-            return True
-        else:
-            return False
+        if isinstance(__value, ICurrency):
+            return self.__code == __value.get_code()
+        return False
+
 
     def set_name(self, name: str) -> None:
         self.__name = name

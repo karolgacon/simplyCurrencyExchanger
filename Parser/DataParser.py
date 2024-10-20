@@ -1,3 +1,4 @@
+from interfaces.ICurrencyCollection import ICurrencyCollection
 from interfaces.IDataParser import IDataParser
 from interfaces.IParserOption import IParserOption
 from ParserOption.JSONParserOption import JsonArrayParserOption
@@ -11,7 +12,7 @@ class DataParser(IDataParser):
     def __init__(self):
         self.strategy: IParserOption = None
 
-    def parse_data(self, data: str) -> CurrencyCollection:
+    def parse_data(self, data: str) -> ICurrencyCollection:
         # Rozpoznawanie formatu danych
         if self._is_json(data):
             self.strategy = JsonArrayParserOption()  # Wybór parsera JSON

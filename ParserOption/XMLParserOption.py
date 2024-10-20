@@ -1,18 +1,18 @@
 import xml.etree.ElementTree as Et
 from Currency.Currency import Currency
 from CurrencyCollection.CurrencyCollection import CurrencyCollection
+from interfaces.ICurrencyCollection import ICurrencyCollection
 from interfaces.IParserOption import IParserOption
 
 class XMLToCollectionOption(IParserOption):
-    def parse(self, data: str) -> CurrencyCollection:
+    def parse(self, data: str) -> ICurrencyCollection:
         root = Et.fromstring(data)
-        id = root.find("ExchangeRatesTable").find("No").text
-        timestamp = root.find("ExchangeRatesTable").find("EffectiveDate").text
+        id: str = root.find("ExchangeRatesTable").find("No").text
+        timestamp: str = root.find("ExchangeRatesTable").find("EffectiveDate").text
 
         # Tworzymy kolekcję walut z id i timestamp
-        collection = CurrencyCollection(tableID=id, timestamp=timestamp)
+        collection: ICurrencyCollection = CurrencyCollection(tid=id, timestamp=timestamp)
 
-        collection: CurrencyCollection = CurrencyCollection()
         for currency_node in root.find("ExchangeRatesTable").find("Rates").findall("Rate"):
             code: str = currency_node.find('Code').text
             rate: float = float(currency_node.find('Mid').text)

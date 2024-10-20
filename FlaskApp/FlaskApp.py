@@ -2,18 +2,24 @@ from flask import Flask, render_template, request, flash
 from Exchanger.Exchanger import Exchanger
 from typing import Optional, Self
 from interfaces.IDataProvider import IDataProvider
-from interfaces.IParserOption import IParserOption
 from interfaces.IDataParser import IDataParser
 
 class FlaskApp:
-    _instance: Optional['FlaskApp'] = None
+    _instance: Self = None
 
-    def __new__(cls, exchanger: Exchanger, web_data_acquisition: IDataProvider, file_data_acquisition: IDataProvider, json_parser: IDataParser) -> Self:
+    @classmethod
+    def get_instance(cls, exchanger: Exchanger, web_data_acquisition: IDataProvider, file_data_acquisition: IDataProvider, data_parser: IDataParser) -> 'FlaskApp':
+        """Zwraca instancję FlaskApp, tworząc ją jeśli nie istnieje."""
+        if cls._instance is None:
+            cls._instance = cls(exchanger, web_data_acquisition, file_data_acquisition, data_parser)
+        return cls._instance
+
+    def __new__(cls, exchanger: Exchanger, web_data_acquisition: IDataProvider, file_data_acquisition: IDataProvider, data_parser: IDataParser) -> Self:
         if cls._instance is None:
             cls._instance = super(FlaskApp, cls).__new__(cls)
             cls._instance._exchanger = exchanger
             cls._instance._web_data_acquisition = web_data_acquisition
-            cls._instance._json_parser = json_parser
+            cls._instance._json_parser = data_parser
             cls._instance._file_data_acquisition = file_data_acquisition
             cls._instance._app = Flask(__name__)
             cls._instance._configure_routes()
