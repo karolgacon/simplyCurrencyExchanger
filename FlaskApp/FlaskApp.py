@@ -3,7 +3,8 @@ from DataProvider.FileDataProvider import FileDataProvider
 from DataProvider.WebDataProvider import WebDataProvider
 from Exchanger.Exchanger import Exchanger
 from typing import Self
-from Parser.DataParser import DataParser
+from Parser.JSONParser import JsonArrayParser
+from Parser.XMLParser import XMLArrayParser
 from interfaces.IDataProvider import IDataProvider
 from interfaces.IDataParser import IDataParser
 
@@ -68,9 +69,9 @@ class FlaskApp:
             return render_template('index.html', currency_collection=self._exchanger.currency_collection.get_currencies())
 
     def run(self) -> None:
-        self._web_data_acquisition = WebDataProvider("https://api.nbp.pl/api/exchangerates/tables/A?format=json")
-        self._file_data_acquisition = FileDataProvider("./A.xml")
-        self._data_parser = DataParser()
+        self._web_data_acquisition = WebDataProvider("https://api.nbp.pl/api/exchangerates/tables/A")
+        self._file_data_acquisition = FileDataProvider("./data.json")
+        self._data_parser = JsonArrayParser()
         self._currency_collection = self._data_parser.parse_data(self._web_data_acquisition.acquire_data())
         self._exchanger = Exchanger(self._currency_collection)
         self._app.run(debug=True)
