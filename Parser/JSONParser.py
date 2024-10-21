@@ -9,14 +9,11 @@ import json
 class JsonArrayParser(IDataParser):
     def parse_data(self, data: str) -> ICurrencyCollection:
         json_data = json.loads(data)
-        # Pobieramy id i timestamp z pierwszej tabeli
         id: str = json_data[0]['no']
         timestamp: str = json_data[0]['effectiveDate']
 
-        # Tworzymy kolekcję walut z id i timestamp
         collection: ICurrencyCollection = CurrencyCollection(tid=id, timestamp=timestamp)
 
-        # Przetwarzamy waluty
         for entry in json_data[0]['rates']:
             currency_code: str = entry.get('code')
             currency_name: str = entry.get('currency')

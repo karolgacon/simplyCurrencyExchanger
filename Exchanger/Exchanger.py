@@ -1,8 +1,10 @@
 from interfaces.ICurrency import ICurrency
 from interfaces.ICurrencyCollection import ICurrencyCollection
 from typing import Self
+from interfaces.IExchanger import IExchanger
 
-class Exchanger:
+
+class Exchanger(IExchanger):
     _instance: Self = None  # Zmienna klasowa przechowująca jedyną instancję
 
     def __new__(cls, currency_collection: ICurrencyCollection = None):
@@ -14,7 +16,7 @@ class Exchanger:
         return cls._instance
 
     @classmethod
-    def get_instance(cls, currency_collection: ICurrencyCollection = None) -> 'Exchanger':
+    def get_instance(cls, currency_collection: ICurrencyCollection = None) -> Self:
         if cls._instance is None:
             if currency_collection is None:
                 raise ValueError("Musisz przekazać currency_collection przy pierwszej inicjalizacji.")

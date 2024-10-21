@@ -11,7 +11,7 @@ class XMLArrayParser(IDataParser):
         id: str = root.find("ExchangeRatesTable").find("No").text
         timestamp: str = root.find("ExchangeRatesTable").find("EffectiveDate").text
 
-        # Tworzymy kolekcję walut z id i timestamp
+
         collection: ICurrencyCollection = CurrencyCollection(tid=id, timestamp=timestamp)
 
         for currency_node in root.find("ExchangeRatesTable").find("Rates").findall("Rate"):
